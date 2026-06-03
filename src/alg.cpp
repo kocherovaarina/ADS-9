@@ -1,9 +1,6 @@
 // Copyright 2022 NNTU-CS
-#include  <iostream>
-#include  <fstream>
-#include  <locale>
-#include  <cstdlib>
-#include  "tree.h"
+#include "tree.h"
+#include <vector>
 
 // Деструктор узла дерева — рекурсивно удаляет всех потомков
 PMTreeNode::~PMTreeNode() {
@@ -39,6 +36,7 @@ std::vector<std::vector<char>> getAllPerms(const PMTree& tree) {
     std::vector<char> current;
 
     if (tree.getRoot()) {
+        // Корневой узел имеет реальное значение, начинаем с него
         collectAllPerms(tree.getRoot(), current, result);
     }
 
@@ -68,8 +66,11 @@ void PMTree::buildTree(PMTreeNode* node, const std::vector<char>& available) {
     }
 }
 
-// Конструктор дерева — создаёт корневые узлы и запускает построение
+// Конструктор дерева — создаёт корневые узлы
 PMTree::PMTree(const std::vector<char>& elements) {
+    // Создаем реальный корневой узел с первым элементом
+    // Для этого нужно создать несколько корневых узлов
+    // Проще создать фиктивный корень, но при обходе его пропускать
     root = new PMTreeNode('\0'); // Временный корневой узел
     buildTree(root, elements);
 }
@@ -110,11 +111,27 @@ std::vector<char> getPerm2(PMTree& tree, int num) {
     std::vector<char> result;
     PMTreeNode* current = tree.getRoot();
 
-    // Пропускаем корневой узел (временный)
-    if (!current->children.empty()) {
-        current = current->children[0]; // Начинаем с первого реального узла
+    // Пропускаем фиктивный корневой узел
+    if (current->value == '\0' && !current->children.empty()) {
+        // Нам нужно выбрать правильного потомка фиктивного корня
+        int cumulative = 0;
+        PMTreeNode* next = nullptr;
+        
+        for (auto child : current->children) {
+            int leavesInSubtree = countLeaves(child);
+            if (cumulative + leavesInSubtree >= num) {
+                next = child;
+                break;
+            }
+            cumulative += leavesInSubtree;
+        }
+        
+        if (!next) return {};
+        num -= cumulative;
+        current = next;
     }
-
+    
+    // Теперь идем по дереву до листа
     while (current) {
         result.push_back(current->value);
 
