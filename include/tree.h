@@ -15,13 +15,13 @@ class PMTreeNode {
 
 class PMTree {
  private:
-    PMTreeNode* root;
+    std::vector<PMTreeNode*> roots;
     void buildTree(PMTreeNode* node, const std::vector<char>& available);
 
  public:
     explicit PMTree(const std::vector<char>& elements);
     ~PMTree();
-    PMTreeNode* getRoot() const { return root; }
+    const std::vector<PMTreeNode*>& getRoots() const { return roots; }
 };
 
 std::vector<std::vector<char>> getAllPerms(const PMTree& tree);

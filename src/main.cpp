@@ -23,8 +23,8 @@ int generateRandomPermNumber(int n) {
     uint64_t totalPerms = factorial(n);
     std::random_device rd;
     std::mt19937 gen(rd());
-    std::uniform_int_distribution<int> dist(1,
-        static_cast<int>(totalPerms));
+    std::uniform_int_distribution<int> dist(
+        1, static_cast<int>(totalPerms));
     return dist(gen);
 }
 
@@ -61,7 +61,8 @@ int main() {
             auto end_getAllPerms =
                 std::chrono::high_resolution_clock::now();
             auto duration_getAllPerms =
-                std::chrono::duration_cast<std::chrono::microseconds>(
+                std::chrono::duration_cast<
+                    std::chrono::microseconds>(
                     end_getAllPerms - start_getAllPerms);
             avg_getAllPerms += duration_getAllPerms.count();
 
@@ -73,7 +74,8 @@ int main() {
             auto end_getPerm1 =
                 std::chrono::high_resolution_clock::now();
             auto duration_getPerm1 =
-                std::chrono::duration_cast<std::chrono::microseconds>(
+                std::chrono::duration_cast<
+                    std::chrono::microseconds>(
                     end_getPerm1 - start_getPerm1);
             avg_getPerm1 += duration_getPerm1.count();
 
@@ -83,7 +85,8 @@ int main() {
             auto end_getPerm2 =
                 std::chrono::high_resolution_clock::now();
             auto duration_getPerm2 =
-                std::chrono::duration_cast<std::chrono::microseconds>(
+                std::chrono::duration_cast<
+                    std::chrono::microseconds>(
                     end_getPerm2 - start_getPerm2);
             avg_getPerm2 += duration_getPerm2.count();
         }
