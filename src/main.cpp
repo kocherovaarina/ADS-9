@@ -1,15 +1,16 @@
-// Copyright 2022 NNTU-CS
-#include "tree.h"
 
+// Copyright 2022 NNTU-CS
+#include <chrono>
 #include <cstdlib>
 #include <ctime>
-
-#include <chrono>
 #include <fstream>
 #include <iostream>
 #include <random>
 #include <string>
 #include <vector>
+
+#include "tree.h"
+
 
 // Функция для вычисления факториала
 uint64_t factorial(int n) {
