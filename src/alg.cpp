@@ -1,7 +1,8 @@
 // Copyright 2022 NNTU-CS
+#include <vector>
+
 #include "tree.h"
 
-#include <vector>
 
 // Деструктор узла дерева
 PMTreeNode::~PMTreeNode() {
